@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="6177dcb4-8375-468d-8279-c6a0743f7d72" >
+		<http:listener-connection host="localhost" port="9001" />
+	</http:listener-config>
+	<flow name="challenge_2Flow" doc:id="2bbece4d-a73d-44cb-9c1a-143e152ddf37" >
+		<http:listener doc:name="Listener" doc:id="a44fcb9e-9f60-4eba-95de-eca44c8acb78" config-ref="HTTP_Listener_config" path="/adderss"/>
+		<logger level="INFO" doc:name="Logger" doc:id="0ce84304-34c2-4bce-9992-75184d9cdbb8" message="#['Hi' ++ (message.attributes.queryParams.name default '')]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="4864a4b2-dae5-4005-ad78-437b0d5b2fc2" message="#[payload]"/>
+		<set-payload value="#['Good bye ' ++ (message.attributes.queryParams.name default '' )]" doc:name="Set Payload" doc:id="cde9e4f5-8f92-4c3b-80c5-3b078fbc047d" />
+	</flow>
+</mule>
